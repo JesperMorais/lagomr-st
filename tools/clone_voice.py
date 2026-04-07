@@ -115,6 +115,13 @@ def main():
 
     # Load model
     ckpt_dir = ROOT / "OpenVoice" / "checkpoints_v2" / "converter"
+    if not (ckpt_dir / "checkpoint.pth").exists():
+        print("Error: Model checkpoints not found.")
+        print("Run the setup script first, or download manually:")
+        print('  pip install huggingface_hub')
+        print('  python -c "from huggingface_hub import snapshot_download; '
+              "snapshot_download('myshell-ai/OpenVoiceV2', local_dir='OpenVoice/checkpoints_v2')\"")
+        sys.exit(1)
     print("Loading ToneColorConverter...")
     converter = ToneColorConverter(str(ckpt_dir / "config.json"), device=device)
     converter.watermark_model = None

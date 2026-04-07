@@ -29,6 +29,7 @@ output/*.flac
 !references/*.mp3
 
 # Model checkpoints (downloaded during setup)
+OpenVoice/checkpoints_v2/**/*.pth
 OpenVoice/checkpoints_v2/base_speakers/ses/.cache/
 
 # OS files

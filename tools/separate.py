@@ -53,7 +53,7 @@ def main():
     cmd = [
         demucs_bin,
         "--out", args.output_dir,
-        "--name", args.model,
+        "-n", args.model,
     ]
 
     if args.two_stems:
