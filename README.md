@@ -8,7 +8,7 @@ Clone any voice and use it to create songs or build a real-time voice changer. P
 - **Convert vocals** in any song to sound like the cloned voice
 - **Separate vocals** from instrumentals automatically (Demucs)
 - **Mix final tracks** with balanced vocals + instrumental
-- **Real-time voice changer** (coming soon)
+- **Real-time voice changer** (planned)
 
 ## Quick Start
 
