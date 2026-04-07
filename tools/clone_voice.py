@@ -11,8 +11,11 @@ ROOT = Path(__file__).resolve().parent.parent
 # Add OpenVoice to path
 sys.path.insert(0, str(ROOT / "OpenVoice"))
 
-# Add local Scripts to PATH for ffmpeg etc.
-os.environ["PATH"] = str(ROOT / "Scripts") + os.pathsep + os.environ.get("PATH", "")
+# Add local venv Scripts to PATH for ffmpeg etc.
+for scripts_dir in [ROOT / "venv" / "Scripts", ROOT / "venv" / "bin", ROOT / "Scripts"]:
+    if scripts_dir.exists():
+        os.environ["PATH"] = str(scripts_dir) + os.pathsep + os.environ.get("PATH", "")
+        break
 
 
 def auto_device():
@@ -24,7 +27,8 @@ def separate_audio(input_path, output_dir):
     """Run demucs to separate vocals from instrumental."""
     import subprocess
 
-    scripts_dir = ROOT / "Scripts"
+    venv_scripts = ROOT / "venv" / ("Scripts" if sys.platform == "win32" else "bin")
+    scripts_dir = venv_scripts if venv_scripts.exists() else ROOT / "Scripts"
     demucs_bin = scripts_dir / ("demucs.exe" if sys.platform == "win32" else "demucs")
     if not demucs_bin.exists():
         import shutil

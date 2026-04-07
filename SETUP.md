@@ -52,19 +52,17 @@ cd lagomr-st
 ### 3. Create Virtual Environment
 
 ```bash
-python -m venv .
-# or using uv (faster):
-# uv venv .
+python -m venv venv
 ```
 
 Activate it:
 
 ```bash
 # Windows
-Scripts\activate
+venv\Scripts\activate
 
 # Linux/Mac
-source bin/activate
+source venv/bin/activate
 ```
 
 ### 4. Install PyTorch

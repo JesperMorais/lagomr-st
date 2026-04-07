@@ -8,7 +8,10 @@ import os
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-SCRIPTS_DIR = ROOT / "Scripts"
+# Check venv location (setup.bat creates venv/, legacy uses Scripts/)
+SCRIPTS_DIR = ROOT / "venv" / ("Scripts" if sys.platform == "win32" else "bin")
+if not SCRIPTS_DIR.exists():
+    SCRIPTS_DIR = ROOT / "Scripts"
 
 
 def find_demucs():

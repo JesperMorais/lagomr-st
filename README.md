@@ -17,14 +17,19 @@ Clone any voice and use it to create songs or build a real-time voice changer. P
 git clone https://github.com/JesperMorais/lagomr-st.git
 cd lagomr-st
 
-# 2. Run setup (creates venv, installs deps, downloads models)
-# Windows
+# 2. Run setup (one button — installs everything)
+# Windows:
 setup.bat
-
-# Linux/Mac
+# Linux/Mac:
 chmod +x setup.sh && ./setup.sh
 
-# 3. Clone a voice and convert a song
+# 3. Activate the environment
+# Windows:
+venv\Scripts\activate
+# Linux/Mac:
+source venv/bin/activate
+
+# 4. Clone a voice and convert a song
 python tools/clone_voice.py --reference my_voice.wav --input song.mp3 --output my_song.wav
 ```
 
