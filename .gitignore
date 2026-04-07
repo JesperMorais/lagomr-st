@@ -1,0 +1,46 @@
+# Virtual environment
+Lib/
+Scripts/
+Include/
+share/
+pyvenv.cfg
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.eggs/
+dist/
+build/
+
+# Audio outputs (large files)
+separated/
+processed/
+output/*.wav
+output/*.mp3
+output/*.flac
+*.wav
+*.mp3
+*.flac
+
+# Keep reference clips tracked
+!references/*.wav
+!references/*.mp3
+
+# Model checkpoints (downloaded during setup)
+OpenVoice/checkpoints_v2/base_speakers/ses/.cache/
+
+# OS files
+desktop.ini
+Thumbs.db
+.DS_Store
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Environment
+.env
