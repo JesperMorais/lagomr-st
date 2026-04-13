@@ -10,23 +10,60 @@ echo  This will install everything you need. Just wait.
 echo.
 
 :: ---- Check Python ----
-python --version >nul 2>&1
-if errorlevel 1 (
-    echo  [ERROR] Python not found!
-    echo.
+:: Try py launcher with 3.12 first, then 3.11, then 3.10, then fall back to python
+set "PYTHON_CMD="
+for %%V in (3.12 3.11 3.10) do (
+    if not defined PYTHON_CMD (
+        py -%%V --version >nul 2>&1
+        if not errorlevel 1 set "PYTHON_CMD=py -%%V"
+    )
+)
+if not defined PYTHON_CMD (
+    python --version >nul 2>&1
+    if errorlevel 1 (
+        echo  [ERROR] Python not found!
+        echo.
+        echo  Install Python 3.10-3.12 from https://python.org
+        echo  Make sure to check "Add Python to PATH" during install.
+        echo.
+        pause
+        exit /b 1
+    )
+    set "PYTHON_CMD=python"
+)
+
+:: Verify version is 3.10-3.12
+for /f "tokens=2 delims= " %%a in ('%PYTHON_CMD% --version 2^>^&1') do set "PYVER=%%a"
+for /f "tokens=1,2 delims=." %%a in ("%PYVER%") do (
+    set "PYMAJOR=%%a"
+    set "PYMINOR=%%b"
+)
+if %PYMAJOR% NEQ 3 (
+    echo  [ERROR] Python %PYVER% is not supported.
     echo  Install Python 3.10-3.12 from https://python.org
-    echo  Make sure to check "Add Python to PATH" during install.
-    echo.
     pause
     exit /b 1
 )
-for /f "tokens=*" %%i in ('python --version 2^>^&1') do echo  [OK] %%i found
+if %PYMINOR% LSS 10 (
+    echo  [ERROR] Python %PYVER% is too old.
+    echo  Install Python 3.10-3.12 from https://python.org
+    pause
+    exit /b 1
+)
+if %PYMINOR% GTR 12 (
+    echo  [ERROR] Python %PYVER% is too new ^(PyTorch doesn't support it yet^).
+    echo  Install Python 3.10-3.12 from https://python.org
+    echo  Tip: If you have multiple versions, the setup will auto-detect 3.10-3.12 via "py" launcher.
+    pause
+    exit /b 1
+)
+echo  [OK] Python %PYVER% found (using: %PYTHON_CMD%)
 
 :: ---- Create virtual environment ----
 if not exist "venv\Scripts\python.exe" (
     echo.
     echo  [1/5] Creating virtual environment...
-    python -m venv venv
+    %PYTHON_CMD% -m venv venv
     if errorlevel 1 (
         echo  [ERROR] Failed to create virtual environment.
         pause

@@ -78,13 +78,12 @@ python tools/clone_voice.py -r references/voice.wav --vocals vocals.wav --vocals
 
 - `OpenVoice/` is upstream code — avoid modifying it directly. Our tools wrap it from `tools/`.
 - `checkpoints_v2/` is gitignored (126MB). The setup scripts download it from HuggingFace.
-- `OpenVoice/openvoice_app.py` is a **V1 Gradio app** that uses `checkpoints/` (V1 format). It does NOT work with our V2 setup. If building a web UI or voice changer, create a new one using the V2 API.
+- `OpenVoice/openvoice_app.py` is a **V1 Gradio app** that uses `checkpoints/` (V1 format). It does NOT work with our V2 setup.
 - The `convert_voice.py` in the root is the original prototype with hardcoded paths. `tools/clone_voice.py` is the proper CLI replacement.
 - Audio files (*.wav, *.mp3) are gitignored except in `references/`.
+- **Real-time voice changer**: Use Applio (separate install at `C:\Projects\Applio`) with VB-CABLE for live voice changing. OpenVoice is file-based only.
 
 ## What's NOT built yet
 
-- **Real-time voice changer** — would need a streaming pipeline (mic input → chunk processing → speaker output). The OpenVoice converter works on full files, not streams. Would need to implement overlapping windowed processing.
-- **Web UI for V2** — the existing Gradio app is V1 only. A new one would use `ToneColorConverter` from `openvoice.api` with the V2 checkpoints.
 - **Batch processing** — converting multiple songs at once.
 - **Voice library** — saving/loading multiple cloned voice profiles.

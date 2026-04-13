@@ -1,6 +1,6 @@
 # Voice Cloner & Song Maker
 
-Clone any voice and use it to create songs or build a real-time voice changer. Powered by [OpenVoice V2](https://github.com/myshell-ai/OpenVoice).
+Clone any voice and use it to create songs. Powered by [OpenVoice V2](https://github.com/myshell-ai/OpenVoice). For real-time voice changing, use [Applio](https://github.com/IAHispano/Applio).
 
 ## What It Does
 
@@ -8,7 +8,6 @@ Clone any voice and use it to create songs or build a real-time voice changer. P
 - **Convert vocals** in any song to sound like the cloned voice
 - **Separate vocals** from instrumentals automatically (Demucs)
 - **Mix final tracks** with balanced vocals + instrumental
-- **Real-time voice changer** (planned)
 
 ## Quick Start
 
@@ -36,26 +35,6 @@ python tools/clone_voice.py --reference my_voice.wav --input song.mp3 --output m
 See [SETUP.md](SETUP.md) for detailed installation instructions.
 
 ## Usage
-
-### Web UI (Easiest)
-
-Launch the voice changer web interface — no command line needed:
-
-```bash
-# Windows: double-click start_voice_changer.bat, or:
-start_voice_changer.bat
-
-# Linux/Mac:
-chmod +x start_voice_changer.sh && ./start_voice_changer.sh
-```
-
-Opens a browser UI at `http://localhost:7860` where you can:
-- Upload a reference voice clip
-- Upload a full song (auto-separates) or pre-separated vocals
-- Adjust voice similarity, volumes, and mix settings
-- Download the result
-
-### CLI Tools
 
 ### Step 1: Separate Vocals from a Song
 
@@ -110,8 +89,7 @@ python tools/clone_voice.py \
 voice-cloner/
 ├── tools/
 │   ├── clone_voice.py      # Main voice cloning CLI
-│   ├── separate.py         # Audio source separation CLI
-│   └── voice_changer_app.py # Web UI (Gradio)
+│   └── separate.py         # Audio source separation CLI
 ├── OpenVoice/              # OpenVoice V2 engine
 │   ├── checkpoints_v2/     # Model weights (downloaded during setup)
 │   └── openvoice/          # Core library
@@ -119,8 +97,6 @@ voice-cloner/
 ├── separated/              # Auto-separated vocal/instrumental tracks
 ├── output/                 # Final output tracks
 ├── requirements.txt        # Python dependencies
-├── start_voice_changer.bat # Launch web UI (Windows)
-├── start_voice_changer.sh  # Launch web UI (Linux/Mac)
 ├── setup.bat               # Windows setup script
 ├── setup.sh                # Linux/Mac setup script
 ├── SETUP.md                # Detailed setup guide
@@ -140,6 +116,20 @@ voice-cloner/
 - NVIDIA GPU with CUDA (recommended) or CPU (slower)
 - ~4GB disk space (models + dependencies)
 - FFmpeg (included in setup or install separately)
+
+## Real-Time Voice Changer (Applio)
+
+For live voice changing (e.g. on Discord, in games), use [Applio](https://github.com/IAHispano/Applio) with a virtual audio cable:
+
+1. **Install VB-CABLE** from https://vb-audio.com/Cable/ (free virtual audio cable)
+2. **Install Applio** — clone the repo and run `run-install.bat`, then `run-applio.bat`
+3. In the Applio web UI, go to the **Voice Changer** tab
+4. Select your **microphone** as input device
+5. Select **CABLE Input (VB-Audio Virtual Cable)** as output device
+6. Load an RVC voice model and click **Start**
+7. In your app (Discord, game, etc.), set your mic to **CABLE Output**
+
+Your voice now goes: Mic → Applio (converts it) → Virtual Cable → Discord/game hears the converted voice.
 
 ## Tips
 
