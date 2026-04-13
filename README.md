@@ -37,6 +37,26 @@ See [SETUP.md](SETUP.md) for detailed installation instructions.
 
 ## Usage
 
+### Web UI (Easiest)
+
+Launch the voice changer web interface — no command line needed:
+
+```bash
+# Windows: double-click start_voice_changer.bat, or:
+start_voice_changer.bat
+
+# Linux/Mac:
+chmod +x start_voice_changer.sh && ./start_voice_changer.sh
+```
+
+Opens a browser UI at `http://localhost:7860` where you can:
+- Upload a reference voice clip
+- Upload a full song (auto-separates) or pre-separated vocals
+- Adjust voice similarity, volumes, and mix settings
+- Download the result
+
+### CLI Tools
+
 ### Step 1: Separate Vocals from a Song
 
 Split any song into vocals and instrumental tracks:
@@ -90,7 +110,8 @@ python tools/clone_voice.py \
 voice-cloner/
 ├── tools/
 │   ├── clone_voice.py      # Main voice cloning CLI
-│   └── separate.py         # Audio source separation CLI
+│   ├── separate.py         # Audio source separation CLI
+│   └── voice_changer_app.py # Web UI (Gradio)
 ├── OpenVoice/              # OpenVoice V2 engine
 │   ├── checkpoints_v2/     # Model weights (downloaded during setup)
 │   └── openvoice/          # Core library
@@ -98,6 +119,8 @@ voice-cloner/
 ├── separated/              # Auto-separated vocal/instrumental tracks
 ├── output/                 # Final output tracks
 ├── requirements.txt        # Python dependencies
+├── start_voice_changer.bat # Launch web UI (Windows)
+├── start_voice_changer.sh  # Launch web UI (Linux/Mac)
 ├── setup.bat               # Windows setup script
 ├── setup.sh                # Linux/Mac setup script
 ├── SETUP.md                # Detailed setup guide
